@@ -61,7 +61,7 @@ try:
 except:
     pass
 
-repoPages = 1+int(aboutUser["public_repos"]/ 30) ##api shows only 30 results per page, so get no. of pages and  loop through them
+repoPages = ceil(aboutUser["public_repos"]/ 30) ##api shows only 30 results per page, so get no. of pages and  loop through them
 for repoPageNum in range(1, repoPages + 1):
     ## try and get repo list of target user
     repoList = fetch(f"https://api.github.com/users/{targetUser}/repos?page={repoPageNum}")

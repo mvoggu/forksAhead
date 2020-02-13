@@ -74,7 +74,7 @@ for repoPageNum in range(1, repoPages + 1):
 
     for repo in repoList:
         if repo["name"] == targetRepo: ## if target repo
-            forkPages = 1+int(repo["forks_count"]/ 30) ##api shows only 30 results per page, so get no. of pages and  loop through them
+            forkPages = ceil(repo["forks_count"]/ 30) ##api shows only 30 results per page, so get no. of pages and  loop through them
             for forkPageNum in range(1, forkPages + 1): ## iterate for each page
                 forks = fetch(f'https://api.github.com/repositories/{repo["id"]}/forks?page={forkPageNum}')
                 for fork in forks: ## for each fork
@@ -95,7 +95,7 @@ for repoPageNum in range(1, repoPages + 1):
                                 try:
                                     result = fetch(f'https://api.github.com/repos/{fork["full_name"]}/compare/{targetUser}:master...{branch["name"]}')
                                     #print("\nComparing with master branch of original repo cause same named branch couldn't be found\n")
-                                    isNewBranch = '(new branch)'
+                                    isNewBranch = '(new branch)' # mark as new branch if it is one
                                 except:
                                     continue ## branch in fork couldn't be compared, continuing to next branch
                         except:
